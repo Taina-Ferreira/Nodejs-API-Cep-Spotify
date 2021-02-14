@@ -1,8 +1,10 @@
+require('dotenv/config');
 var SpotifyWebApi = require('spotify-web-api-node');
 
+
 var spotifyApi = new SpotifyWebApi({
-  clientId: '<>',
-  clientSecret: '<>',
+  clientId: process.env.clientId,
+  clientSecret: process.env.clientSecret,
   redirectUri: 'localhost:4000/'
 });
 
