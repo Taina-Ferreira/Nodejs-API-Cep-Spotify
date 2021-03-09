@@ -16,8 +16,32 @@ const login = async () => {
 const buscaAlbum = async (artistId) => {
 
     await login();
-    const response = await spotifyApi.getArtistAlbums(artistId,{limit: 21});
-    return response;
+    const response = await spotifyApi.getArtistAlbums(artistId,{limit: 30});
+
+    const items = response.body.items;
+
+    const inseridos = [];
+    const uniqueItems = [];
+
+    items.forEach((item) => {
+        if (!inseridos.includes(item.name)) {
+            inseridos.push(item.name);
+            uniqueItems.push(item);
+        }
+    });
+
+
+    const shuffle = (a) => {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    shuffle(uniqueItems);
+
+    return uniqueItems;
 }
 
 const buscaArtista = async (artista) => {
